@@ -1,12 +1,14 @@
 import axios from 'axios';
 
+import type { TestResult } from '../utils/example';
+
 interface ExecuteRequest {
   code: string | undefined;
   testCode: string | undefined;
 }
 
 interface ExecuteResponse {
-  result: string;
+  data: TestResult[];
 }
 
 export const CodeSmoothApi = {
