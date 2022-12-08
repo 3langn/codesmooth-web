@@ -1,4 +1,5 @@
 import axios from "axios";
+import { TestResult } from "../utils/example";
 
 interface ExecuteRequest {
   code: string | undefined;
@@ -6,7 +7,7 @@ interface ExecuteRequest {
 }
 
 interface ExecuteResponse {
-  result: string;
+  data: TestResult[];
 }
 
 export const CodeSmoothApi = {

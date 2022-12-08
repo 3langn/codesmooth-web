@@ -1,9 +1,10 @@
 // const fetcher = (url: string) => fetch(url).then((res) => res.json());
-
 import Editor from '@monaco-editor/react';
+import { Clear, Done } from '@mui/icons-material';
 import { editor } from 'monaco-editor';
 import { useState } from 'react';
 import { CodeSmoothApi } from '../api/codesmooth-api';
+import  { codeExample, testExample, TestResult } from '../utils/example';
 
 const Course = () => {
   // const { courseId } = useParams();
@@ -13,7 +14,7 @@ const Course = () => {
   // if (!data) return <div>loading...</div>;
   const [code, setCode] = useState<string | undefined>('');
   const [testCode, setTestCode] = useState<string | undefined>('');
-  const [result, setResult] = useState<string | undefined>('');
+  const [results, setResults] = useState<TestResult[]>([]);
   const [monacoInstance, setMonacoInstance] = useState<editor.IStandaloneCodeEditor | null>(null);
   const [monacoTestInstance, setMonacoTestInstance] = useState<editor.IStandaloneCodeEditor | null>(null);
   const options: editor.IStandaloneEditorConstructionOptions = {
@@ -28,24 +29,15 @@ const Course = () => {
     setMonacoInstance(editor);
 
     // set default code
-    editor.setValue(`const sumEqualSix = (a, b) => {
-      // some code here
-    }
-  `);
+    editor.setValue(codeExample);
   };
 
   const onTestCodeMount = (editor: editor.IStandaloneCodeEditor) => {
     setMonacoTestInstance(editor);
     // set default code
-    editor.setValue(`const executeTest = () => { 
-      if (sumEqualSix(3,3) === 6){
-        return { result:'Success' } 
-      } else { 
-        return {result:\`Wrong answer: result is \${sumEqualSix(3,3)}\`}
-      } 
-    }`);
+    editor.setValue(testExample);
   };
-
+   
   const onCodeChange = (value: string | undefined) => {
     setCode(value);
   };
@@ -58,7 +50,7 @@ const Course = () => {
     console.log(code);
     CodeSmoothApi.execute({ code:monacoInstance?.getValue(), testCode:monacoTestInstance?.getValue() }).then((res) => {
       console.log(res);
-      setResult(res.data.result);
+      setResults(res.data.data);
     });
   };
   return (
@@ -73,7 +65,7 @@ const Course = () => {
         <h1>Course</h1>
         <Editor
           height="40vh"
-          defaultLanguage="javascript"
+          defaultLanguage="typescript"
           defaultValue={monacoTestInstance?.getValue()}
           theme="vs-dark"
           onMount={onCodeMount}
@@ -84,7 +76,7 @@ const Course = () => {
         <span>Write test code here</span>
         <Editor
           height="40vh"
-          defaultLanguage="javascript"
+          defaultLanguage="typescript"
           defaultValue={monacoTestInstance?.getValue()}
           theme="vs-dark"
           onMount={onTestCodeMount}
@@ -93,9 +85,38 @@ const Course = () => {
           options={options}
         />
         <button onClick={handleRun} className='p-5 bg-blue-400 text-white'>RUN</button>
-        {result && <div className="w-full h-40 bg-gray-200">
-          <span>{result}</span>
-        </div>}
+        {results.length > 0 && <div className="w-full h-40 bg-gray-200">
+          <div>
+            <span>Results</span>
+          </div>
+          <div className='flex justify-center'>
+              <table>
+              <caption> {<span>{`${results.filter((i)=>i.success).length} Of ${results.length} success`}</span>  }</caption>
+                <tbody>
+                  <tr>
+                    <td className='px-14'>Result</td>
+                    <td className='px-14'>Input</td>
+                    <td className='px-14'>Expected Output</td>
+                    <td className='px-14'>Actual Output</td>
+                    <td className='px-14'>Reason</td>
+                </tr>
+                {results.map((result, index) => {
+                  return (
+                    <tr key={index}>
+                      <td>{result.success ? <Done/> : <Clear/>}</td>
+                      <td>{JSON.stringify(result.input)}</td>
+                      <td>{result.expected_output}</td>
+                      <td>{result.actual_output}</td>
+                      <td>{result.reason}</td>
+                    </tr>
+                  );
+                })
+                }
+                </tbody>
+              </table>
+          </div>
+        </div>
+        }
       </div>
     </div>
   );
