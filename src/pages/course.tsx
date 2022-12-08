@@ -1,8 +1,9 @@
 // const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
 import Editor from '@monaco-editor/react';
-import { editor } from 'monaco-editor';
+import type { editor } from 'monaco-editor';
 import { useState } from 'react';
+
 import { CodeSmoothApi } from '../api/codesmooth-api';
 
 const Course = () => {
@@ -15,12 +16,14 @@ const Course = () => {
   const [testCode, setTestCode] = useState<string | undefined>('');
   const [result, setResult] = useState<string | undefined>('');
   const [monacoInstance, setMonacoInstance] = useState<editor.IStandaloneCodeEditor | null>(null);
-  const [monacoTestInstance, setMonacoTestInstance] = useState<editor.IStandaloneCodeEditor | null>(null);
+  const [monacoTestInstance, setMonacoTestInstance] = useState<editor.IStandaloneCodeEditor | null>(
+    null,
+  );
   const options: editor.IStandaloneEditorConstructionOptions = {
     selectOnLineNumbers: true,
     roundedSelection: false,
     // readOnly: false,
-    cursorStyle: "line",
+    cursorStyle: 'line',
     // automaticLayout: false,
   };
 
@@ -55,9 +58,10 @@ const Course = () => {
   };
 
   const handleRun = () => {
-    console.log(code);
-    CodeSmoothApi.execute({ code:monacoInstance?.getValue(), testCode:monacoTestInstance?.getValue() }).then((res) => {
-      console.log(res);
+    CodeSmoothApi.execute({
+      code: monacoInstance?.getValue(),
+      testCode: monacoTestInstance?.getValue(),
+    }).then((res) => {
       setResult(res.data.result);
     });
   };
@@ -67,7 +71,6 @@ const Course = () => {
     //   <p>{data.description}</p>
     // </div>
 
-    
     <div className="flex h-screen w-full justify-center">
       <div className="w-[50%]">
         <h1>Course</h1>
@@ -92,10 +95,14 @@ const Course = () => {
           onChange={onTestCodeChange}
           options={options}
         />
-        <button onClick={handleRun} className='p-5 bg-blue-400 text-white'>RUN</button>
-        {result && <div className="w-full h-40 bg-gray-200">
-          <span>{result}</span>
-        </div>}
+        <button onClick={handleRun} className="bg-blue-400 p-5 text-white">
+          RUN
+        </button>
+        {result && (
+          <div className="h-40 w-full bg-gray-200">
+            <span>{result}</span>
+          </div>
+        )}
       </div>
     </div>
   );
