@@ -1,32 +1,4 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-.ed-grid {
-  grid-template-columns: 0fr 0fr 1fr 0fr;
-  grid-template-rows: 0fr 0fr 1fr;
-  grid-template-areas:
-      "ed-grid-header ed-grid-header ed-grid-header ed-grid-header"
-      "ed-grid-sidebar ed-grid-sidebar2 ed-grid-header2 ed-grid-sidebar3"
-      "ed-grid-sidebar ed-grid-sidebar2 ed-grid-main ed-grid-sidebar3";
-    }
-
-
-
-a {
-  @apply text-blue-700;
-}
-
-a:hover {
-  @apply border-b-2 border-blue-700;
-}
-
-
-
-.content p {
-  @apply my-6;
-}
-
-.content ul {
-  @apply my-6;
-}
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,wght@0,600;0,700;0,800;0,900;1,400;1,600;1,700;1,800;1,900&display=swap');

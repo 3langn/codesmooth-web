@@ -101,7 +101,6 @@ const Course = () => {
             <div className="flex justify-center">
               <table>
                 <caption>
-                  {' '}
                   {
                     <span>{`${results.filter((i) => i.success).length} Of ${
                       results.length
