@@ -16,6 +16,7 @@ module.exports = {
     },
     extend: {
       colors: {
+        dark: { 90: '#1e1e27' },
         gray: {
           100: '#f7fafc',
           200: '#edf2f7',
@@ -38,6 +39,7 @@ module.exports = {
           800: '#2c5282',
           900: '#2a4365',
         },
+        button: { hover: '#f5f5f5' },
       },
     },
   },

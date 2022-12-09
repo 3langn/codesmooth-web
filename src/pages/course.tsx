@@ -1,10 +1,12 @@
 // const fetcher = (url: string) => fetch(url).then((res) => res.json());
 import Editor from '@monaco-editor/react';
 import { Clear, Done } from '@mui/icons-material';
-import { editor } from 'monaco-editor';
+import type { editor } from 'monaco-editor';
 import { useState } from 'react';
+
 import { CodeSmoothApi } from '../api/codesmooth-api';
-import  { codeExample, testExample, TestResult } from '../utils/example';
+import type { TestResult } from '../utils/example';
+import { codeExample, testExample } from '../utils/example';
 
 const Course = () => {
   // const { courseId } = useParams();
@@ -16,12 +18,14 @@ const Course = () => {
   const [testCode, setTestCode] = useState<string | undefined>('');
   const [results, setResults] = useState<TestResult[]>([]);
   const [monacoInstance, setMonacoInstance] = useState<editor.IStandaloneCodeEditor | null>(null);
-  const [monacoTestInstance, setMonacoTestInstance] = useState<editor.IStandaloneCodeEditor | null>(null);
+  const [monacoTestInstance, setMonacoTestInstance] = useState<editor.IStandaloneCodeEditor | null>(
+    null,
+  );
   const options: editor.IStandaloneEditorConstructionOptions = {
     selectOnLineNumbers: true,
     roundedSelection: false,
     // readOnly: false,
-    cursorStyle: "line",
+    cursorStyle: 'line',
     // automaticLayout: false,
   };
 
@@ -37,7 +41,7 @@ const Course = () => {
     // set default code
     editor.setValue(testExample);
   };
-   
+
   const onCodeChange = (value: string | undefined) => {
     setCode(value);
   };
@@ -48,7 +52,10 @@ const Course = () => {
 
   const handleRun = () => {
     console.log(code);
-    CodeSmoothApi.execute({ code:monacoInstance?.getValue(), testCode:monacoTestInstance?.getValue() }).then((res) => {
+    CodeSmoothApi.execute({
+      code: monacoInstance?.getValue(),
+      testCode: monacoTestInstance?.getValue(),
+    }).then((res) => {
       console.log(res);
       setResults(res.data.data);
     });
@@ -59,8 +66,7 @@ const Course = () => {
     //   <p>{data.description}</p>
     // </div>
 
-    
-    <div className="flex h-screen w-full justify-center">
+    <div className="flex justify-center">
       <div className="w-[50%]">
         <h1>Course</h1>
         <Editor
@@ -84,39 +90,48 @@ const Course = () => {
           onChange={onTestCodeChange}
           options={options}
         />
-        <button onClick={handleRun} className='p-5 bg-blue-400 text-white'>RUN</button>
-        {results.length > 0 && <div className="w-full h-40 bg-gray-200">
-          <div>
-            <span>Results</span>
-          </div>
-          <div className='flex justify-center'>
+        <button onClick={handleRun} className="bg-blue-400 p-5 text-white">
+          RUN
+        </button>
+        {results.length > 0 && (
+          <div className="h-40 w-full bg-gray-200">
+            <div>
+              <span>Results</span>
+            </div>
+            <div className="flex justify-center">
               <table>
-              <caption> {<span>{`${results.filter((i)=>i.success).length} Of ${results.length} success`}</span>  }</caption>
+                <caption>
+                  {' '}
+                  {
+                    <span>{`${results.filter((i) => i.success).length} Of ${
+                      results.length
+                    } success`}</span>
+                  }
+                </caption>
                 <tbody>
                   <tr>
-                    <td className='px-14'>Result</td>
-                    <td className='px-14'>Input</td>
-                    <td className='px-14'>Expected Output</td>
-                    <td className='px-14'>Actual Output</td>
-                    <td className='px-14'>Reason</td>
-                </tr>
-                {results.map((result, index) => {
-                  return (
-                    <tr key={index}>
-                      <td>{result.success ? <Done/> : <Clear/>}</td>
-                      <td>{JSON.stringify(result.input)}</td>
-                      <td>{result.expected_output}</td>
-                      <td>{result.actual_output}</td>
-                      <td>{result.reason}</td>
-                    </tr>
-                  );
-                })
-                }
+                    <td className="px-14">Result</td>
+                    <td className="px-14">Input</td>
+                    <td className="px-14">Expected Output</td>
+                    <td className="px-14">Actual Output</td>
+                    <td className="px-14">Reason</td>
+                  </tr>
+                  {results.map((result, index) => {
+                    return (
+                      <tr key={index}>
+                        <td>{result.success ? <Done /> : <Clear />}</td>
+                        <td>{JSON.stringify(result.input)}</td>
+                        <td>{result.expected_output}</td>
+                        <td>{result.actual_output}</td>
+                        <td>{result.reason}</td>
+                      </tr>
+                    );
+                  })}
                 </tbody>
               </table>
+            </div>
           </div>
-        </div>
-        }
+        )}
       </div>
     </div>
   );
