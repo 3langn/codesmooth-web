@@ -2,6 +2,17 @@
 @tailwind components;
 @tailwind utilities;
 
+.ed-grid {
+  grid-template-columns: 0fr 0fr 1fr 0fr;
+  grid-template-rows: 0fr 0fr 1fr;
+  grid-template-areas:
+      "ed-grid-header ed-grid-header ed-grid-header ed-grid-header"
+      "ed-grid-sidebar ed-grid-sidebar2 ed-grid-header2 ed-grid-sidebar3"
+      "ed-grid-sidebar ed-grid-sidebar2 ed-grid-main ed-grid-sidebar3";
+    }
+
+
+
 a {
   @apply text-blue-700;
 }

@@ -66,7 +66,7 @@ const Course = () => {
     //   <p>{data.description}</p>
     // </div>
 
-    <div className="flex h-screen w-full justify-center">
+    <div className="flex justify-center">
       <div className="w-[50%]">
         <h1>Course</h1>
         <Editor

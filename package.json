@@ -24,6 +24,7 @@
   "dependencies": {
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
+    "@floating-ui/react-dom-interactions": "^0.13.3",
     "@monaco-editor/react": "^4.4.6",
     "@mui/icons-material": "^5.10.16",
     "@mui/material": "^5.10.17",
