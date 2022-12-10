@@ -3,7 +3,7 @@ import AutoStoriesOutlinedIcon from "@mui/icons-material/AutoStoriesOutlined";
 import type { ReactNode } from 'react';
 
 import Navigate from '@/common/Navigate';
-import NavBar from '@/components/Navbar';
+import Link from 'next/link';
 
 type IMainProps = {
   meta: ReactNode;
@@ -15,10 +15,10 @@ const Main = (props: IMainProps) => {
     <div>
       <nav className="fixed top-0 z-10 flex h-16 w-full border-0 border-b border-solid border-gray-300 bg-white transition duration-300 ease-in-out dark:border-gray-700 dark:bg-dark-90 sm:h-16 items-center">
         <span className="px-2 flex justify-start items-center gap-2">
-          <img src="./logo-96.png" alt="Logo" className="h-8 w-8 ml-4" />
+          <img src="/logo-96.png" alt="Logo" className="h-8 w-8 ml-4" />
           <span className="font-bold text-lg">Code Smooth</span>
         </span>
-        <div className="h-full flex-row pl-8 lg:flex">
+        <div className="h-full flex-row pl-8">
           <Navigate />
         </div>
         <div className="flex h-full flex-auto items-center justify-end">
@@ -38,18 +38,17 @@ const Main = (props: IMainProps) => {
           </div>
         </div>
       </nav>
-      <nav className="fixed top-16 z-10 h-full w-sidebar bg-gray-200 flex">
-        <a
-          title="My Learning"
+      <nav className="fixed top-16 z-50 h-full w-sidebar bg-gray-200 flex">
+        <Link
+          href="/"
           className="h-20 flex flex-col items-center w-full cursor-pointer py-3 px-1 hover:text-white focus:text-white"
         >
           <AutoStoriesOutlinedIcon style={{ color: "#505050" }} />
           My Learning
-        </a>
+        </Link>
       </nav>
-      <div className="flex flex-1 flex-col bg-white pl-sidebar pt-72">
-        <NavBar />
-        <div className="content w-full pl-2 text-xl">{props.children}</div>
+      <div className="flex flex-1 flex-col bg-white pl-sidebar pt-72 items-center">
+        {props.children}
       </div>
     </div>
   );

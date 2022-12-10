@@ -42,9 +42,6 @@ module.exports = {
         },
         button: { hover: "#f5f5f5" },
       },
-      fontFamily: {
-        sans: ["Nunito Sans, sans-serif"],
-      },
       width: {
         sidebar: "120px",
       },
