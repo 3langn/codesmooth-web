@@ -47,7 +47,7 @@ const Main = (props: IMainProps) => {
           My Learning
         </Link>
       </nav>
-      <div className="flex flex-1 flex-col bg-white pl-sidebar pt-72 items-center">
+      <div className="flex flex-1 flex-col bg-white pl-sidebar pt-16 items-center">
         {props.children}
       </div>
     </div>

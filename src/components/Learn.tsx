@@ -30,9 +30,9 @@ const Learn = () => {
   const [currentNavItem, setCurrentNavItem] = useState(NavItem[0]);
   return (
     <>
-      <div className="fixed flex flex-col items-center top-16 w-full pt-10 bg-white border-black z-10">
+      <div className="flex flex-col items-center top-16 w-full pt-10 bg-white border-black z-10">
         <span className="p-10 text-3xl">Welcome, Minh</span>
-        <ul className="flex w-full flex-wrap justify-center text-xl border-b-2 border-gray-300">
+        <ul className="sticky top-0 flex w-full flex-wrap justify-center text-xl border-b-2 border-gray-300">
           {NavItem.map((item, index) => {
             return (
               <li onClick={() => setCurrentNavItem(item)} key={index}
