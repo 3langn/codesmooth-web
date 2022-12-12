@@ -1,6 +1,9 @@
-import { Meta } from "@/layouts/Meta";
-import { Main } from "@/templates/Main";
-import LearnBody from "../components/Learn";
+import { Login } from '@mui/icons-material';
+
+import { Meta } from '@/layouts/Meta';
+import { Main } from '@/templates/Main';
+
+import LearnBody from '../components/Learn';
 
 const Index = () => {
   return (
@@ -15,6 +18,7 @@ const Index = () => {
       >
         <LearnBody />
       </Main>
+      <Login />
     </div>
   );
 };
