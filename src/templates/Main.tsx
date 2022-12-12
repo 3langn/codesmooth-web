@@ -1,9 +1,9 @@
 import AutoStoriesOutlinedIcon from '@mui/icons-material/AutoStoriesOutlined';
 import SearchIcon from '@mui/icons-material/Search';
+import Link from 'next/link';
 import type { ReactNode } from 'react';
 
 import Navigate from '@/common/Navigate';
-import NavBar from '@/components/Navbar';
 
 type IMainProps = {
   meta: ReactNode;
@@ -18,7 +18,7 @@ const Main = (props: IMainProps) => {
           <img src="/logo-96.png" alt="Logo" className="ml-4 h-8 w-8" />
           <span className="text-lg font-bold">Code Smooth</span>
         </span>
-        <div className="h-full flex-row pl-8 lg:flex">
+        <div className="h-full flex-row pl-8">
           <Navigate />
         </div>
         <div className="flex h-full flex-auto items-center justify-end">
@@ -38,18 +38,17 @@ const Main = (props: IMainProps) => {
           </div>
         </div>
       </nav>
-      <nav className="fixed top-16 z-10 flex h-full w-sidebar bg-gray-200">
-        <a
-          title="My Learning"
+      <nav className="fixed top-16 z-50 flex h-full w-sidebar bg-gray-200">
+        <Link
+          href="/"
           className="flex h-20 w-full cursor-pointer flex-col items-center py-3 px-1 hover:text-white focus:text-white"
         >
           <AutoStoriesOutlinedIcon style={{ color: '#505050' }} />
           My Learning
-        </a>
+        </Link>
       </nav>
-      <div className="flex flex-1 flex-col bg-white pl-sidebar pt-72">
-        <NavBar />
-        <div className="w-full pl-2 text-xl">{props.children}</div>
+      <div className="flex flex-1 flex-col items-center bg-white pl-sidebar pt-16">
+        {props.children}
       </div>
     </div>
   );
